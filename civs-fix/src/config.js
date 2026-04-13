@@ -10,7 +10,7 @@ export const CONFIG = {
 
   // Logo: "shield" | "cross" | "heart" | "star" | "custom"
   logoTipo:       "custom",
-  logoImagemUrl:  "https://chatgpt.com/backend-api/estuary/content?id=file_000000005b98720e9e55a576633320a4&ts=493363&p=fs&cid=1&sig=f04faa1db4730809ee48412b9806857db5fbf9bf2b68b36ca020e0069278b516&v=0",          // URL da imagem se logoTipo = "custom"
+  logoImagemUrl:  "https://i.postimg.cc/cCsqn5PR/civs.png",          // URL da imagem se logoTipo = "custom"
 
   corPrimaria:       "#0A1F44",
   corDestaque:       "#F2C94C",
