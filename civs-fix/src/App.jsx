@@ -34,19 +34,13 @@ function LogoMark({ size = 36 }) {
 
   // 👉 SVG INLINE (NOVO)
   if (logoTipo === "custom" && logoSvg) {
-    return (
-      <div
-        style={{
-          width: size,
-          height: size,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        dangerouslySetInnerHTML={{ __html: logoSvg }}
-      />
-    );
-  }
+  return (
+    <div
+      style={{ width: size, height: size }}
+      dangerouslySetInnerHTML={{ __html: logoSvg }}
+    />
+  );
+}
 
   // 👉 imagem (caso queira usar URL)
   if (logoTipo === "custom" && logoImagemUrl) {
