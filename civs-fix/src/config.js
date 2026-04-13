@@ -2,11 +2,11 @@
 //  ⚙️  CONFIGURAÇÕES — edite aqui sem mexer no restante do código
 // ═══════════════════════════════════════════════════════════════
 export const CONFIG = {
-  nomeDoSistema:  "CIVS - ",
+  nomeDoSistema:  "CIVS",
   subtitulo:      "Atenção Primária em Saúde",
   descricaoHero:  "Acesse fichas de notificação compulsória, fluxos operacionais e contatos dos técnicos responsáveis pelos agravos.",
-  rodape:         "Sistema de Vigilância Epidemiológica — Atenção Primária à Saúde",
-  ano:            "2024",
+  rodape:         "Sistema de Vigilância Epidemiológica — Itabuna - BA",
+  ano:            "2026",
 
   // Logo: "shield" | "cross" | "heart" | "star" | "custom"
   logoTipo:       "custom",
