@@ -12,11 +12,7 @@ export const CONFIG = {
   logoTipo:       "custom",
   logoImagemUrl:  "https://i.postimg.cc/cCsqn5PR/civs.png",          // URL da imagem se logoTipo = "custom"
 
-logoSvg: `
-<svg viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
-  <path d="M50 10 L80 25 L80 55 C80 75 65 88 50 95 C35 88 20 75 20 55 L20 25 Z"
-        fill="#0A1F44"/>
-</svg>
+
 `
   
   corPrimaria:       "#0A1F44",
@@ -33,5 +29,8 @@ logoSvg: `
     "Doenças Parasitárias","Violências e Acidentes","IST/HIV","Outras",
   ],
   logoTipo: "custom",
-logoSvg: `COLE_AQUI_O_SVG`,
+<svg viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 10 L80 25 L80 55 C80 75 65 88 50 95 C35 88 20 75 20 55 L20 25 Z"
+        fill="#0A1F44"/>
+</svg>`,
 };
