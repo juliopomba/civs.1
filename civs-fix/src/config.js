@@ -19,7 +19,7 @@ export const CONFIG = {
   adminUsuario: "julionovais",
   adminSenha:   "54110286Jn@",   // ⚠️ TROQUE antes de publicar!
 
-  appUrl: "https://civs-orns.vercel.app",  // URL após hospedar
+  appUrl: "https://civs1.vercel.app/",  // URL após hospedar
 
   categorias: [
     "Todas","Arboviroses","Doenças Respiratórias","Doenças Crônicas",
