@@ -25,4 +25,6 @@ export const CONFIG = {
     "Todas","Arboviroses","Doenças Respiratórias","Doenças Crônicas",
     "Doenças Parasitárias","Violências e Acidentes","IST/HIV","Outras",
   ],
+  logoTipo: "custom",
+logoSvg: `COLE_AQUI_O_SVG`,
 };
