@@ -29,7 +29,61 @@ function QRCanvas({url,size=140}){const ref=useRef(null);useEffect(()=>{if(ref.c
 const Ic=({d,s=18,sw=1.8})=>(<svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}><path d={d}/></svg>);
 const StarSvg=({on})=>(<svg width={15} height={15} viewBox="0 0 24 24" fill={on?CONFIG.corDestaque:"none"} stroke={on?CONFIG.corDestaque:"#aaa"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>);
 const LP={shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",cross:"M12 2v20M2 12h20",heart:"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",star:"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"};
-function LogoMark({size=36}){const{logoTipo,logoImagemUrl}=CONFIG;if(logoTipo==="custom"&&logoImagemUrl)return <img src={logoImagemUrl} alt="logo" style={{width:size,height:size,borderRadius:Math.round(size*.22),objectFit:"contain",background:CONFIG.corDestaque,padding:4}}/>;return(<div style={{width:size,height:size,background:CONFIG.corDestaque,borderRadius:Math.round(size*.22),display:"flex",alignItems:"center",justifyContent:"center",color:CONFIG.corPrimaria,flexShrink:0}}><Ic d={LP[logoTipo]||LP.shield} s={Math.round(size*.55)} sw={2}/></div>);}
+function LogoMark({ size = 36 }) {
+  const { logoTipo, logoImagemUrl, logoSvg } = CONFIG;
+
+  // 👉 SVG INLINE (NOVO)
+  if (logoTipo === "custom" && logoSvg) {
+    return (
+      <div
+        style={{
+          width: size,
+          height: size,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        dangerouslySetInnerHTML={{ __html: logoSvg }}
+      />
+    );
+  }
+
+  // 👉 imagem (caso queira usar URL)
+  if (logoTipo === "custom" && logoImagemUrl) {
+    return (
+      <img
+        src={logoImagemUrl}
+        alt="logo"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: Math.round(size * 0.22),
+          objectFit: "contain",
+          background: CONFIG.corDestaque,
+          padding: 4,
+        }}
+      />
+    );
+  }
+
+  // 👉 ícones padrão
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        background: CONFIG.corDestaque,
+        borderRadius: Math.round(size * 0.22),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: CONFIG.corPrimaria,
+      }}
+    >
+      <Ic d={LP[logoTipo] || LP.shield} s={Math.round(size * 0.55)} sw={2} />
+    </div>
+  );
+}
 
 // INITIAL DATA
 const FICHAS_INI=[
