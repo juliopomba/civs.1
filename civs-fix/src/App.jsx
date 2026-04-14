@@ -988,8 +988,7 @@ export default function App(){
             <div className="fg"><label className="fl">Senha</label><input className="fi" type="password" value={lp} onChange={e=>setLp(e.target.value)} placeholder="••••••••" onKeyDown={e=>e.key==="Enter"&&doLogin()}/></div>
             <button className="lbtn" onClick={doLogin}>Entrar</button>
             <div className="lhint">
-              <strong>Admin:</strong> usuário/senha definidos em <code>config.js</code><br/>
-              <strong>Técnico:</strong> usuário <code>tecnico</code> / senha <code>tecnico123</code>
+              
             </div>
           </div>
         </div>
