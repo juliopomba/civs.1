@@ -117,7 +117,7 @@ button,select,input,textarea{font-family:inherit;}
 .hdr{background:var(--nv);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
 .hdr-in{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:left;gap:10px;height:62px;}
 .logo-btn{display:flex;align-items:left;gap:10px;border:none;background:none;cursor:pointer;padding:0;text-align:left;}
-.logo-txt .t{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#fff;line-height:1.1;margin-top:10px;}
+.logo-txt .t{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#fff;line-height:1.1;margin-top:15px;}
 .logo-txt .s{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;}
 .hsp{flex:1;}
 .hnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
