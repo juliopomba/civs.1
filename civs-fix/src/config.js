@@ -3,9 +3,9 @@
 // ═══════════════════════════════════════════════════════════════
 export const CONFIG = {
   nomeDoSistema:  "CIVS",
-  subtitulo:      "Atenção Primária em Saúde",
+  subtitulo:      "Centro de Inteligência em Vigilância em Saúde",
   descricaoHero:  "Acesse fichas de notificação compulsória, fluxos operacionais e contatos dos técnicos responsáveis pelos agravos.",
-  rodape:         "Sistema de Vigilância Epidemiológica — Itabuna - BA",
+  rodape:         "Vigilância Epidemiológica — Itabuna - BA",
   ano:            "2026",
 
   // Logo: "shield" | "cross" | "heart" | "star" | "custom"
