@@ -29,55 +29,7 @@ function QRCanvas({url,size=140}){const ref=useRef(null);useEffect(()=>{if(ref.c
 const Ic=({d,s=18,sw=1.8})=>(<svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}><path d={d}/></svg>);
 const StarSvg=({on})=>(<svg width={15} height={15} viewBox="0 0 24 24" fill={on?CONFIG.corDestaque:"none"} stroke={on?CONFIG.corDestaque:"#aaa"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>);
 const LP={shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",cross:"M12 2v20M2 12h20",heart:"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",star:"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"};
-function LogoMark({ size = 36 }) {
-  const { logoTipo, logoImagemUrl, logoSvg } = CONFIG;
-
-  // 👉 SVG INLINE (NOVO)
-  if (logoTipo === "custom" && logoSvg) {
-  return (
-    <div
-      style={{ width: size, height: size }}
-      dangerouslySetInnerHTML={{ __html: logoSvg }}
-    />
-  );
-}
-
-  // 👉 imagem (caso queira usar URL)
-  if (logoTipo === "custom" && logoImagemUrl) {
-    return (
-      <img
-        src={logoImagemUrl}
-        alt="logo"
-        style={{
-          width: size,
-          height: size,
-          borderRadius: Math.round(size * 0.22),
-          objectFit: "contain",
-          background: CONFIG.corDestaque,
-          padding: 4,
-        }}
-      />
-    );
-  }
-
-  // 👉 ícones padrão
-  return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        background: CONFIG.corDestaque,
-        borderRadius: Math.round(size * 0.22),
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: CONFIG.corPrimaria,
-      }}
-    >
-      <Ic d={LP[logoTipo] || LP.shield} s={Math.round(size * 0.55)} sw={2} />
-    </div>
-  );
-}
+function LogoMark({size=36}){const{logoTipo,logoImagemUrl}=CONFIG;if(logoTipo==="custom"&&logoImagemUrl)return <img src={logoImagemUrl} alt="logo" style={{width:size,height:size,borderRadius:Math.round(size*.22),objectFit:"contain",background:CONFIG.corDestaque,padding:4}}/>;return(<div style={{width:size,height:size,background:CONFIG.corDestaque,borderRadius:Math.round(size*.22),display:"flex",alignItems:"center",justifyContent:"center",color:CONFIG.corPrimaria,flexShrink:0}}><Ic d={LP[logoTipo]||LP.shield} s={Math.round(size*.55)} sw={2}/></div>);}
 
 // INITIAL DATA
 const FICHAS_INI=[
@@ -115,10 +67,10 @@ html,body,#root{min-height:100%;}
 body{font-family:'DM Sans',sans-serif;background:var(--g1);color:var(--g7);-webkit-font-smoothing:antialiased;}
 button,select,input,textarea{font-family:inherit;}
 .hdr{background:var(--nv);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.3);}
-.hdr-in{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:left;gap:10px;height:62px;}
-.logo-btn{display:flex;align-items:left;gap:10px;border:none;background:none;cursor:pointer;padding:0;text-align:left;}
+.hdr-in{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:10px;height:62px;}
+.logo-btn{display:flex;align-items:center;gap:10px;border:none;background:none;cursor:pointer;padding:0;}
 .logo-txt .t{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#fff;line-height:1.1;}
-.logo-txt .s{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em; margin-top:10px;}
+.logo-txt .s{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;}
 .hsp{flex:1;}
 .hnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
 .np{padding:6px 12px;border-radius:20px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:var(--tr);display:flex;align-items:center;gap:5px;white-space:nowrap;}
@@ -474,9 +426,17 @@ function DocForm({init,tipo,categorias,onSalvar,onFechar}){
           <div className="fg"><label className="fl">Link PDF (Google Drive)</label><input className="fi" value={f.linkPdf} onChange={e=>set("linkPdf",e.target.value)} placeholder="https://drive.google.com/file/d/..."/></div>
           <div className="fg"><label className="fl">Upload PDF</label><UploadZone arquivo={arq} onChange={a=>{setArq(a);set("linkPdf",a.name);}}/></div>
           <div className="fg"><label className="fl">Data de Atualização</label><input className="fi" type="date" value={f.atualizadoEm} onChange={e=>set("atualizadoEm",e.target.value)}/></div>
+          {(!f.nome||!f.descricao)&&(
+            <div style={{background:"#FFF5F5",border:"1px solid #FED7D7",borderRadius:8,padding:"9px 12px",fontSize:12,color:"var(--rd)",marginBottom:8}}>
+              Preencha os campos obrigatórios: {[!f.nome&&"Nome",!f.descricao&&"Descrição"].filter(Boolean).join(" e ")}
+            </div>
+          )}
           <div className="mo-foot">
             <button className="bc" onClick={onFechar}>Cancelar</button>
-            <button className="bs" onClick={()=>{if(!f.nome||!f.descricao)return;onSalvar({...f,id:init?.id||("id"+Date.now()),favorito:init?.favorito||false,acessos:init?.acessos||0});}}>Salvar</button>
+            <button className="bs" onClick={()=>{
+              if(!f.nome||!f.descricao)return;
+              onSalvar({...f,id:init?.id||("id"+Date.now()),favorito:init?.favorito||false,acessos:init?.acessos||0});
+            }}>Salvar</button>
           </div>
         </div>
       </div>
@@ -509,9 +469,17 @@ function TecForm({init,onSalvar,onFechar,todosAgravos}){
               :<div className="tags-select">{todosAgravos.map(a=><button key={a} type="button" className={`tag-opt${f.agravos.includes(a)?" sel":""}`} onClick={()=>toggleAgravo(a)}>{a}</button>)}</div>
             }
           </div>
+          {(!f.nome||!f.cargo||!f.bio)&&(
+            <div style={{background:"#FFF5F5",border:"1px solid #FED7D7",borderRadius:8,padding:"9px 12px",fontSize:12,color:"var(--rd)",marginBottom:8}}>
+              Preencha os campos obrigatórios: {[!f.nome&&"Nome",!f.cargo&&"Cargo",!f.bio&&"Bio"].filter(Boolean).join(", ")}
+            </div>
+          )}
           <div className="mo-foot">
             <button className="bc" onClick={onFechar}>Cancelar</button>
-            <button className="bs" onClick={()=>{if(!f.nome||!f.cargo||!f.bio)return;onSalvar({...f,id:init?.id||("t"+Date.now())});}}>Salvar</button>
+            <button className="bs" onClick={()=>{
+              if(!f.nome||!f.cargo||!f.bio)return;
+              onSalvar({...f,id:init?.id||("t"+Date.now())});
+            }}>Salvar</button>
           </div>
         </div>
       </div>
@@ -833,6 +801,53 @@ function CategoriasAgravos({cats,agravosCustom,onAdicionarCat,onEditarCat,onExcl
   );
 }
 
+
+// PAGINA FORM COMPONENT
+function PaginaForm({init,onSalvar,onFechar}){
+  const [f,setF]=useState(init||{titulo:"",categoria:"",conteudo:"",linkPdf:"",imagemUrl:"",atualizadoEm:new Date().toISOString().slice(0,10)});
+  const [arq,setArq]=useState(null);
+  const set=(k,v)=>setF(p=>({...p,[k]:v}));
+  const camposFaltando=[!f.titulo&&"Título",!f.conteudo&&"Conteúdo"].filter(Boolean);
+  return(
+    <div className="mo-bg" onClick={e=>e.target===e.currentTarget&&onFechar()}>
+      <div className="mo">
+        <div className="mo-hdr">
+          <span className="mo-t">{init?.id?"Editar Página":"Nova Página"}</span>
+          <button className="mo-x" onClick={onFechar}><Ic d="M18 6L6 18M6 6l12 12" s={16}/></button>
+        </div>
+        <div className="mo-body">
+          <div className="fg"><label className="fl">Título da página *</label><input className="fi" value={f.titulo} onChange={e=>set("titulo",e.target.value)} placeholder="Ex: Protocolo de Dengue, Manual da UBS..."/></div>
+          <div className="fg"><label className="fl">Categoria / Tag</label><input className="fi" value={f.categoria} onChange={e=>set("categoria",e.target.value)} placeholder="Ex: Protocolo, Manual, Informativo..."/></div>
+          <div className="fg">
+            <label className="fl">Conteúdo *</label>
+            <textarea className="fi" rows={6} style={{resize:"vertical",lineHeight:1.65}} value={f.conteudo} onChange={e=>set("conteudo",e.target.value)} placeholder={"Escreva o conteúdo da página aqui.
+
+Você pode usar parágrafos, listas e qualquer texto.
+O conteúdo será exibido formatado para o usuário."}/>
+            <div style={{fontSize:11,color:"var(--g4)",marginTop:4}}>Dica: pressione Enter para nova linha. O texto aparece formatado na página.</div>
+          </div>
+          <div className="fg"><label className="fl">URL da imagem de capa (opcional)</label><input className="fi" value={f.imagemUrl} onChange={e=>set("imagemUrl",e.target.value)} placeholder="https://...jpg ou .png"/></div>
+          <div className="fg"><label className="fl">Link PDF (Google Drive)</label><input className="fi" value={f.linkPdf} onChange={e=>set("linkPdf",e.target.value)} placeholder="https://drive.google.com/file/d/..."/></div>
+          <div className="fg"><label className="fl">Upload PDF</label><UploadZone arquivo={arq} onChange={a=>{setArq(a);set("linkPdf",a.name);}}/></div>
+          <div className="fg"><label className="fl">Data de Atualização</label><input className="fi" type="date" value={f.atualizadoEm} onChange={e=>set("atualizadoEm",e.target.value)}/></div>
+          {camposFaltando.length>0&&(
+            <div style={{background:"#FFF5F5",border:"1px solid #FED7D7",borderRadius:8,padding:"9px 12px",fontSize:12,color:"var(--rd)",marginBottom:8}}>
+              Preencha os campos obrigatórios: {camposFaltando.join(" e ")}
+            </div>
+          )}
+          <div className="mo-foot">
+            <button className="bc" onClick={onFechar}>Cancelar</button>
+            <button className="bs" onClick={()=>{
+              if(!f.titulo||!f.conteudo)return;
+              onSalvar({...f,id:init?.id||("pg"+Date.now())});
+            }}>Salvar Página</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // MAIN APP
 export default function App(){
   // Auth — carrega do localStorage, não perde ao F5
@@ -847,12 +862,14 @@ export default function App(){
   const [tecnicos, setTecnicos] =useState(()=>Store.get("tecnicos", TECS_INI));
   const [cats,     setCats]     =useState(()=>Store.get("cats",     CATS_INI));
   const [agravosCustom,setAgravosCustom]=useState(()=>Store.get("agravosCustom",[]));
+  const [paginas,  setPaginas]  =useState(()=>Store.get("paginas",  []));
 
   useEffect(()=>Store.set("fichas",   fichas),   [fichas]);
   useEffect(()=>Store.set("fluxos",   fluxos),   [fluxos]);
   useEffect(()=>Store.set("tecnicos", tecnicos), [tecnicos]);
   useEffect(()=>Store.set("cats",     cats),     [cats]);
   useEffect(()=>Store.set("agravosCustom",agravosCustom),[agravosCustom]);
+  useEffect(()=>Store.set("paginas",paginas),[paginas]);
 
   const [tela,    setTela]    =useState("fichas");
   const [subTela, setSubTela] =useState("fichas");
@@ -917,6 +934,9 @@ export default function App(){
   const salvarTec=d=>{setTecnicos(ts=>ts.find(x=>x.id===d.id)?ts.map(x=>x.id===d.id?d:x):[d,...ts]);setModal(null);T("✓ Técnico salvo!");};
   const excluirTec=id=>{setTecnicos(ts=>ts.filter(x=>x.id!==id));T("Técnico excluído.");};
 
+  const salvarPagina=d=>{setPaginas(ps=>ps.find(p=>p.id===d.id)?ps.map(p=>p.id===d.id?d:p):[d,...ps]);setModal(null);T("✓ Página salva!");};
+  const excluirPagina=id=>{setPaginas(ps=>ps.filter(p=>p.id!==id));T("Página excluída.");};
+
   const adicionarCat=(nome)=>{if(nome?.trim()&&!cats.includes(nome.trim()))setCats(cs=>[...cs,nome.trim()]);};
   const editarCat=(i,novo)=>{if(novo?.trim())setCats(cs=>cs.map((c,idx)=>idx===i?novo.trim():c));};
   const excluirCat=i=>{setCats(cs=>cs.filter((_,idx)=>idx!==i));T("Categoria excluída.");};
@@ -951,6 +971,11 @@ export default function App(){
             <button className={`np${tela==="qr"?" a":" g"}`} onClick={()=>setTela("qr")}>
               <Ic d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" s={13}/><span className="np-label">QR Code</span>
             </button>
+            {paginas.map(pg=>(
+              <button key={pg.id} className={`np${modal?.paginaId===pg.id?" a":" g"}`} onClick={()=>{setModal({paginaId:pg.id});setTela("paginaView");}}>
+                <Ic d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6" s={13}/><span className="np-label">{pg.titulo.slice(0,18)}</span>
+              </button>
+            ))}
             {(isAdmin||isTecnico)&&(
               <button className={`np${tela==="deploy"?" a":" g"}`} onClick={()=>setTela("deploy")}>
                 <Ic d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" s={13}/><span className="np-label">Publicar</span>
@@ -963,6 +988,9 @@ export default function App(){
                 </button>
                 <button className={`np${tela==="categorias"?" a":" g"}`} onClick={()=>setTela("categorias")}>
                   <Ic d="M4 6h16M4 12h16M4 18h7" s={13}/><span className="np-label">Categorias</span>
+                </button>
+                <button className={`np${tela==="paginas"?" a":" g"}`} onClick={()=>setTela("paginas")}>
+                  <Ic d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2zM7 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" s={13}/><span className="np-label">Páginas</span>
                 </button>
               </>
             )}
@@ -988,7 +1016,8 @@ export default function App(){
             <div className="fg"><label className="fl">Senha</label><input className="fi" type="password" value={lp} onChange={e=>setLp(e.target.value)} placeholder="••••••••" onKeyDown={e=>e.key==="Enter"&&doLogin()}/></div>
             <button className="lbtn" onClick={doLogin}>Entrar</button>
             <div className="lhint">
-              
+              <strong>Admin:</strong> usuário/senha definidos em <code>config.js</code><br/>
+              <strong>Técnico:</strong> usuário <code>tecnico</code> / senha <code>tecnico123</code>
             </div>
           </div>
         </div>
@@ -998,6 +1027,7 @@ export default function App(){
       {modal?.tipo==="ficha"  &&<DocForm init={modal.data} tipo="ficha"  categorias={cats} onSalvar={salvarDoc} onFechar={()=>setModal(null)}/>}
       {modal?.tipo==="fluxo"  &&<DocForm init={modal.data} tipo="fluxo"  categorias={cats} onSalvar={salvarDoc} onFechar={()=>setModal(null)}/>}
       {modal?.tipo==="tecnico"&&<TecForm init={modal.data} todosAgravos={todosAgravos} onSalvar={salvarTec} onFechar={()=>setModal(null)}/>}
+      {modal?.tipo==="pagina" &&<PaginaForm init={modal.data} onSalvar={salvarPagina} onFechar={()=>setModal(null)}/>}
       <Toast msg={toast}/>
 
       {/* FICHAS / FLUXOS / TÉCNICOS */}
@@ -1145,6 +1175,73 @@ export default function App(){
           onExcluirAgravo={excluirAgravo}
           toast={T}
         />
+      )}
+
+
+      {/* PÁGINAS CUSTOMIZADAS — visualização pública */}
+      {tela==="paginaView"&&modal?.paginaId&&(()=>{
+        const pg=paginas.find(p=>p.id===modal.paginaId);
+        if(!pg)return null;
+        return(
+          <div className="main">
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:20}}>
+              <button className="btn s" onClick={()=>{setTela("fichas");setModal(null);}}>
+                <Ic d="M19 12H5M12 19l-7-7 7-7" s={14}/>Voltar
+              </button>
+              {(isAdmin||isTecnico)&&<button className="btn y" onClick={()=>{setModal({tipo:"pagina",data:pg});setTela("fichas");}}>
+                <Ic d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7 M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" s={13}/>Editar
+              </button>}
+            </div>
+            <div style={{background:"var(--wh)",borderRadius:14,border:"1.5px solid var(--g2)",boxShadow:"var(--s2)",overflow:"hidden"}}>
+              {pg.imagemUrl&&<img src={pg.imagemUrl} alt={pg.titulo} style={{width:"100%",maxHeight:280,objectFit:"cover",display:"block"}}/>}
+              <div style={{padding:"28px 32px"}}>
+                <div style={{fontSize:11,fontWeight:700,color:"var(--g5)",textTransform:"uppercase",letterSpacing:".06em",marginBottom:10}}>{pg.categoria||"Página"}</div>
+                <h1 style={{fontFamily:"Sora",fontSize:"clamp(20px,3vw,28px)",fontWeight:800,color:"var(--nv)",marginBottom:16,lineHeight:1.3}}>{pg.titulo}</h1>
+                <div style={{fontSize:14,color:"var(--g7)",lineHeight:1.8,whiteSpace:"pre-wrap"}}>{pg.conteudo}</div>
+                {pg.linkPdf?.startsWith("http")&&(
+                  <div style={{marginTop:24,display:"flex",gap:8,flexWrap:"wrap"}}>
+                    <button className="btn p" onClick={()=>window.open(pg.linkPdf,"_blank")}><Ic d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" s={13}/>Visualizar PDF</button>
+                    <button className="btn s" onClick={()=>window.open(pg.linkPdf,"_blank")}><Ic d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3" s={13}/>Baixar</button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* PAINEL ADMIN — PÁGINAS */}
+      {tela==="paginas"&&isAdmin&&(
+        <div className="adm">
+          <div className="adm-hdr">
+            <div className="adm-title">🗂️ Páginas Customizadas</div>
+            <button className="add-btn" onClick={()=>setModal({tipo:"pagina"})}><Ic d="M12 5v14M5 12h14" s={14}/>Nova Página</button>
+          </div>
+          <div className="info-box">
+            Crie páginas livres com título, conteúdo, imagem e PDF. Elas aparecem no menu de navegação para todos os usuários.
+          </div>
+          {paginas.length===0
+            ?<div style={{textAlign:"center",padding:"60px 20px",color:"var(--g5)",fontSize:14}}>Nenhuma página criada ainda. Clique em "Nova Página" para começar.</div>
+            :<div className="tbl-wrap"><table className="tbl">
+              <thead><tr><th>Título</th><th>Categoria</th><th>Conteúdo</th><th>PDF</th><th>Ações</th></tr></thead>
+              <tbody>
+                {paginas.map(p=>(
+                  <tr key={p.id}>
+                    <td><strong style={{color:"var(--nv)",fontFamily:"Sora"}}>{p.titulo}</strong></td>
+                    <td><span className="tbadge">{p.categoria||"—"}</span></td>
+                    <td style={{maxWidth:200,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{p.conteudo}</td>
+                    <td>{p.linkPdf?.startsWith("http")?<span style={{color:"var(--nv)",fontSize:11}}>✓ PDF</span>:<span style={{color:"var(--g4)",fontSize:11}}>—</span>}</td>
+                    <td><div className="tact">
+                      <button className="ib e" title="Ver" onClick={()=>{setModal({paginaId:p.id});setTela("paginaView");}}><Ic d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" s={13}/></button>
+                      <button className="ib e" title="Editar" onClick={()=>setModal({tipo:"pagina",data:p})}><Ic d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7 M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" s={13}/></button>
+                      <button className="ib d" title="Excluir" onClick={()=>excluirPagina(p.id)}><Ic d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" s={13}/></button>
+                    </div></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table></div>
+          }
+        </div>
       )}
 
       <footer className="ftr"><p>{CONFIG.nomeDoSistema} © {CONFIG.ano} — {CONFIG.rodape}</p></footer>
