@@ -48,8 +48,6 @@ const TECS_INI=[
   {id:"t1",nome:"Dra. Ana Paula Souza",cargo:"Enfermeira — Vigilância Epidemiológica",formacao:"Enfermagem — UFBA | Especialização em Epidemiologia",email:"ana.souza@saude.gov.br",telefone:"(71) 9 9999-1111",foto:"",agravos:["Dengue","Tuberculose","Hanseníase"],bio:"Responsável técnica pelas notificações de doenças transmissíveis. Coordena a vigilância epidemiológica da UBS desde 2019."},
   {id:"t2",nome:"Dr. Carlos Mendes",cargo:"Médico — Infectologia",formacao:"Medicina — UFMG | Residência em Infectologia",email:"carlos.mendes@saude.gov.br",telefone:"(71) 9 9999-2222",foto:"",agravos:["Sífilis Congênita","Tuberculose"],bio:"Especialista em doenças infecciosas. Referência técnica para casos de IST e HIV na Atenção Primária."},
   {id:"t3",nome:"Enf. Beatriz Lima",cargo:"Enfermeira — NASF",formacao:"Enfermagem — UNEB | Especialização em Saúde da Família",email:"beatriz.lima@saude.gov.br",telefone:"(71) 9 9999-3333",foto:"",agravos:["Violência Doméstica"],bio:"Integrante do NASF-AB com foco em saúde da mulher, criança e enfrentamento à violência doméstica."},
-  {id:"t4",nome:"Enf. Beatriz Lima",cargo:"Enfermeira — NASF",formacao:"Enfermagem — UNEB | Especialização em Saúde da Família",email:"beatriz.lima@saude.gov.br",telefone:"(71) 9 9999-3333",foto:"",agravos:["Violência Doméstica"],bio:"Integrante do NASF-AB com foco em saúde da mulher, criança e enfrentamento à violência doméstica."},
-];
 ];
 const CATS_INI=["Todas","Arboviroses","Doenças Respiratórias","Doenças Crônicas","Doenças Parasitárias","Violências e Acidentes","IST/HIV","Outras"];
 
